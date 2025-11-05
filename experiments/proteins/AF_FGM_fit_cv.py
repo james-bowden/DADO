@@ -309,6 +309,7 @@ def main():
     args = parser.parse_args()
     
     obj_name = args.obj
+    # NOTE: this file is also available in src/problems/real/data/af3_structures/.
     structure_path = os.path.join(
         os.environ["DIR_DATA"], 
         "af3_structures", 

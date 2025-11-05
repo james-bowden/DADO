@@ -66,6 +66,16 @@ STRUCTURE_PATHS_DICT = {
     "phot": "fold_phot_chlre_model_0.cif",
 }
 
+def calculate_epoch_stats(values_history):
+    """Calculate mean and standard deviation of objective values for each epoch."""
+    means = []
+    stds = []
+    
+    for values in values_history:
+        means.append(float(values.mean()))
+        stds.append(float(values.std()))
+        
+    return np.array(means), np.array(stds)
 
 def fit_oracle(obj_name, num_epochs, num_inner_iter, batch_size, learning_rate, seed, output_dir, vis=True, fit=True):
     """Fit oracle objectives and save plots."""
@@ -904,9 +914,9 @@ def main():
     # Create output directory
     if args.outdir is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        outdir = f"experiments/search_AF_FGM/{timestamp}/{obj_name}"
+        outdir = f"experiments/proteins/{timestamp}/{obj_name}"
     else:
-        outdir = f"experiments/search_AF_FGM/{args.outdir}/{obj_name}"
+        outdir = f"experiments/proteins/{args.outdir}/{obj_name}"
     
     os.makedirs(outdir + '/results', exist_ok=True)
     print(f"Results will be saved to: {outdir}")
@@ -937,6 +947,7 @@ def main():
         min(args.n_offline if args.n_offline > 0 else obj.genotypes.shape[0], 2**10)
     )
 
+    # NOTE: this file is also available in src/problems/real/data/af3_structures/.
     STRUCTURE_PATH = os.path.join(
             os.environ["DIR_DATA"], 
             "af3_structures", 

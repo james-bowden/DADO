@@ -472,7 +472,7 @@ def main():
     # print(f"Cartesian product of Q and lr: {Q_lr_sweep.shape}")
 
     # Create output directory
-    outdir = f"experiments/search_synthetic/tree/{args.outdir}/{args.obj}"
+    outdir = f"experiments/synthetic/{args.outdir}/{args.obj}"
     outdir = outdir + '-neg' if args.negate else outdir
     os.makedirs(outdir + '/results', exist_ok=True)
 

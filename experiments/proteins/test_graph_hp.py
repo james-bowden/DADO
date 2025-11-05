@@ -426,9 +426,9 @@ def main():
     # Create output directory
     if args.outdir is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        outdir = f"experiments/search_AF_FGM/{timestamp}/{obj_name}"
+        outdir = f"experiments/proteins/{timestamp}/{obj_name}"
     else:
-        outdir = f"experiments/search_AF_FGM/{args.outdir}/{obj_name}"
+        outdir = f"experiments/proteins/{args.outdir}/{obj_name}"
     
     os.makedirs(outdir + '/results', exist_ok=True)
     print(f"Results will be saved to: {outdir}")
@@ -459,6 +459,7 @@ def main():
         min(args.n_offline if args.n_offline > 0 else obj.genotypes.shape[0], 2**10)
     )
 
+    # NOTE: this file is also available in src/problems/real/data/af3_structures/.
     STRUCTURE_PATH = os.path.join(
             os.environ["DIR_DATA"], 
             "af3_structures", 
