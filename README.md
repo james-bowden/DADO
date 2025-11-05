@@ -1,7 +1,7 @@
 # Decomposition-Aware Distributional Optimization (DADO)
 
 ## Overview
-This repository accompanies our paper, **fill**. It contains code to replicate experiments, download relevant datasets, etc.
+This repository accompanies our paper, ["Leveraging Discrete Function Decomposability for Scientific Design"](https://github.com/james-bowden/DADO/tree/main). It contains code to replicate experiments, download relevant datasets, etc.
 Synthetic experiments can be run using `experiments/synthetic/sweep_hp.py` (see file for command line arguments). 
 Protein experiments can be run using `experiments/proteins/sweep_hp.py` (see file for command line arguments). For protein experiments, one will additionally fit a decomposed predictive model beforehand. Selection of this model's hyperparameters by cross validation can be done in `experiments/proteins/cv_decomposed_model.py`, though we provide hyperparams resulting from our sweep as defaults.
 
@@ -19,7 +19,7 @@ Other hyperparameters include: the search distribution architecture, the optimiz
 
 
 ## Where do I get a decomposition of my objective function?
-For non-synthetic experiments, choosing a decomposition of the objective function is required. This can be represented in different ways but most fundamentally, one must define a graph in which the nodes correspond to design variables (i.e., dimensions of $x$) and an edge is present between two nodes if they directly interact to influence $f(x)$ (e.g., you expect there to be a pair component function $f_{i,j}(x_i,x_j)$ or some higher-order component function that includes both $i$ and $j$, such as $f_{i,j,k}(x_i,x_j,x_k)$).
+For non-synthetic experiments, choosing a decomposition of the objective function is required. This can be represented in different ways but most fundamentally, one must define a graph in which the nodes correspond to design variables (i.e., dimensions of $x$) and an edge is present between two nodes if they directly interact to influence $f(x)$ (e.g., you expect there to be a pair component function $f_{i,j}(x_i,x_j)$ or some higher-order component function that includes both $i$ and $j$ along with other nodes too).
 
 For proteins, we provide a method which takes a predicted 3D structure from AlphaFold3, and uses a contact map (with contact cutoff of 4.5 A), which can be interpreted as an adjacency matrix, as the functional graph. This is converted into a junction tree, and then its component functions are fit on assay-labeled data. The predicted 3D structures we used are in `src/problems/real/data/af3_structures`.
 
