@@ -1,0 +1,7 @@
+pip install -U "jax[cuda12]"
+pip install "flax<0.11.0"
+pip install --upgrade --force-reinstall git+https://github.com/google-deepmind/optax.git
+pip install mlxu
+mamba install matplotlib seaborn tqdm tabulate networkx biopython scikit-learn --yes
+sudo apt-get install graphviz graphviz-dev
+mamba install --channel conda-forge pygraphviz --yes
