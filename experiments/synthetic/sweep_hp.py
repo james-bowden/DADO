@@ -1,9 +1,11 @@
 import os
 import sys
 import argparse
+from datetime import datetime
 from time import time
 from copy import deepcopy
 import multiprocessing as mp
+import pickle
 
 # Environment setup
 os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
@@ -108,7 +110,6 @@ def run_joint_experiment(temp_Q, lr, obj, seed, n_epochs, n_inner_iter, n_mc_sam
         'lr': lr,
         'seed': seed,
         'method': 'joint',
-        'best_x_frequency': d_joint['best_x_frequency']
     }
     mlxu.save_pickle(stats, intermediate_file)
     return stats
@@ -150,7 +151,6 @@ def run_fd_experiment(temp_Q, lr, obj, seed, n_epochs, n_inner_iter, n_mc_sample
         'lr': lr,
         'seed': seed,
         'method': 'fd',
-        'best_x_frequency': d_fd['best_x_frequency']
     }
     mlxu.save_pickle(stats, intermediate_file)
     return stats
@@ -358,7 +358,6 @@ def run_experiment(temp_Q, lr, obj, seeds, n_epochs, n_inner_iter, n_mc_samples,
         'joint_mins': joint_mins_stacked,
         'joint_weights': joint_Q_stacked,
         'joint_losses': joint_losses_stacked,
-        'joint_best_x_frequency': d_joint['best_x_frequency'],
         'joint_mode': joint_eda.get_mode(),
         'joint_values': joint_values_stacked,
         'fd_maxes': fd_maxes_stacked,
@@ -370,7 +369,6 @@ def run_experiment(temp_Q, lr, obj, seeds, n_epochs, n_inner_iter, n_mc_samples,
         'fd_ess': fd_ess,
         'fd_weights': fd_Q_stacked,
         'fd_losses': fd_losses_stacked,
-        'fd_best_x_frequency': d_fd['best_x_frequency'],
         'fd_values': fd_values_stacked,
         'fd_mode': tree_eda.get_mode(),
         'temp_Q': temp_Q,
@@ -399,7 +397,7 @@ def parse_args():
     parser.add_argument(
         '--obj', 
         type=str, 
-        default='Tree1',
+        default='SETree4',
         help=f'Objective to run. Available: {", ".join(available_objs)}. '
              f'Default: Tree1'
     )
@@ -472,9 +470,18 @@ def main():
     # print(f"Cartesian product of Q and lr: {Q_lr_sweep.shape}")
 
     # Create output directory
+    if args.outdir is None:
+        args.outdir = datetime.now().strftime("%Y%m%d_%H%M%S")
     outdir = f"experiments/synthetic/{args.outdir}/{args.obj}"
     outdir = outdir + '-neg' if args.negate else outdir
     os.makedirs(outdir + '/results', exist_ok=True)
+    print(f"Results will be saved to: {outdir}")
+
+    # Save configuration
+    config_path = f"{outdir}/config.dict"
+    with open(config_path, 'wb') as f:
+        pickle.dump(vars(args), f)
+    print(f"Configuration saved to: {config_path}")
 
     # Create parameter tuples for multiprocessing
     np_rng = np.random.default_rng(args.seed)   # create generator with fixed seed

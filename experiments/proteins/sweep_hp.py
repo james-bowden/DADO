@@ -828,7 +828,7 @@ def parse_args():
     # Optimization parameters (hyperparameter sweep)
     parser.add_argument('--n_epochs', type=int, default=100, help='Number of epochs for optimization')
     parser.add_argument('--n_inner_iter', type=int, default=1, help='Number of inner iterations for optimization')
-    parser.add_argument('--n_mc_samples', type=int, default=100, help='Number of MC samples for optimization')
+    parser.add_argument('--n_mc_samples', type=int, default=1000, help='Number of MC samples for optimization')
     parser.add_argument('--n_layers', type=int, default=2, help='Number of layers for optimization models')
     parser.add_argument('--dim_ff', type=int, default=64, help='Feed-forward dimension for optimization models')
     parser.add_argument('--n_heads', type=int, default=4, help='Number of heads for transformer policy')

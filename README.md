@@ -1,7 +1,7 @@
 # Decomposition-Aware Distributional Optimization (DADO)
 
 ## Overview
-This repository accompanies our paper, ["Leveraging Discrete Function Decomposability for Scientific Design"](https://github.com/james-bowden/DADO/tree/main). It contains code to replicate experiments, download relevant datasets, etc.
+This repository accompanies our paper, ["Leveraging Discrete Function Decomposability for Scientific Design"](http://arxiv.org/abs/2511.03032). It contains code to replicate experiments, download relevant datasets, etc.
 Synthetic experiments can be run using `experiments/synthetic/sweep_hp.py` (see file for command line arguments). 
 Protein experiments can be run using `experiments/proteins/sweep_hp.py` (see file for command line arguments). For protein experiments, one will additionally fit a decomposed predictive model beforehand. Selection of this model's hyperparameters by cross validation can be done in `experiments/proteins/cv_decomposed_model.py`, though we provide hyperparams resulting from our sweep as defaults.
 
