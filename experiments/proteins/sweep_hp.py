@@ -144,7 +144,7 @@ def fit_reward_AF_FGM(
         edgelist=True,
         verbose=False,
         active_inds=obj.active_inds,
-        threshold=9.,
+        threshold=4.5,
         )
     gg = GeneralizedGraph(len(obj.D), edges_AF, verbose=False)
     fg = MLPGeneralizedFunctionalGraph(
