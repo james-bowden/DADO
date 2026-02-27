@@ -59,10 +59,8 @@ STRUCTURE_PATHS_DICT = {
     "aav": "fold_aav_model_0.cif",
     "gb1_55": "fold_gb1_model_0.cif", 
     "tdp43": "fold_tdp43_model_0.cif",
-    "gfp": "fold_avgfp_model_0.cif",
     "ynzc": "fold_ynzc_bacsu_tsuboyama_2023_2jvd_2025_09_18_01_16_model_0.cif",
     "gcn4": "fold_gcn4_model_0.cif",
-    "his7": "fold_his7_model_0.cif",
     "phot": "fold_phot_chlre_model_0.cif",
 }
 
